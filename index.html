@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Bins &amp; Sidewalks</title>
+<meta name="description" content="Lavado a presión de botes de basura y banquetas en tu casa. Agenda en línea en un minuto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#13222B;--paper:#EEF1F2;--card:#FFFFFF;--line:#D5DCDF;--muted:#56666E;
+  --green:#3DBE5C;--green-2:#2FA94D;--green-soft:#E2F5E7;--concrete:#C3CACE;
+  --water:#2D8CD8;--water-soft:#E3F0FB;--focus:#1D5BD6;--danger:#B4232A;--danger-soft:#FCEBEC;
+  --wide:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 "Archivo",system-ui,-apple-system,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:var(--wide);font-stretch:125%;margin:0;line-height:1.04;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+@media(max-width:480px){.wrap{padding:0 16px}}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;text-decoration:none;
+  font-family:var(--wide);font-stretch:110%;font-weight:800;font-size:17px;line-height:1.15;text-align:center;
+  padding:16px 24px;border-radius:16px;background:var(--green);color:var(--ink);
+  box-shadow:0 3px 0 var(--green-2);transition:transform .12s,box-shadow .12s,background-color .15s}
+.btn:hover{background:#47C965}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--green-2)}
+.btn.ghost{background:var(--card);box-shadow:0 3px 0 #B9C4C8;border:1.5px solid var(--line)}
+.btn.ghost:hover{background:#F7FAFA}
+.btn.dark{background:var(--ink);color:#fff;box-shadow:0 3px 0 #000}
+.btn.small{padding:10px 16px;font-size:15px;border-radius:12px;box-shadow:0 2px 0 var(--green-2)}
+.btn svg{flex:none}
+
+/* ---------- header ---------- */
+header.top{position:sticky;top:0;z-index:20;background:rgba(238,241,242,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.top.scrolled{border-bottom-color:var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--wide);font-stretch:112%;font-weight:800;font-size:17px;min-width:0}
+.brand .mark{flex:none;width:36px;height:36px;border-radius:11px;background:var(--ink);display:grid;place-items:center}
+.brand span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+nav.links{display:flex;gap:26px;font-weight:600;font-size:15px}
+nav.links a{text-decoration:none;color:var(--muted)}
+nav.links a:hover{color:var(--ink)}
+.right{display:flex;align-items:center;gap:10px;flex:none}
+.lang{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{border:0;background:none;padding:6px 11px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed=true]{background:var(--ink);color:#fff}
+@media(max-width:900px){nav.links{display:none}}
+@media(max-width:420px){.right .btn.small{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:30px}}
+.hero h1{font-size:clamp(38px,6.6vw,70px);font-weight:800;max-width:12ch}
+.hero .lead{font-size:clamp(17px,2.1vw,20px);color:#33444C;margin-top:20px;max-width:34ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+@media(max-width:520px){.ctas .btn{width:100%}}
+.facts{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px;font-weight:600;color:#33444C}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(61,190,92,.25)}
+
+/* the scrub-to-wash card: the one loud thing on the page */
+.wash{position:relative;border-radius:28px;overflow:hidden;background:#DCE6EA;aspect-ratio:4/5;width:100%;max-width:520px;justify-self:center;
+  box-shadow:0 30px 60px -30px rgba(19,34,43,.45),0 0 0 1px rgba(19,34,43,.06);user-select:none;-webkit-user-select:none}
+@media(max-width:900px){.wash{max-width:440px;margin:0 auto}}
+.wash svg.scene,.wash canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.wash canvas.grime{touch-action:none;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='rgba(45,140,216,.18)' stroke='%232D8CD8' stroke-width='2.5'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%232D8CD8'/%3E%3C/svg%3E") 20 20,crosshair;transition:opacity .7s ease}
+.wash canvas.fx{pointer-events:none}
+.wash .tag{position:absolute;left:14px;top:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
+.pill{background:rgba(255,255,255,.94);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:700;box-shadow:0 4px 14px rgba(19,34,43,.14);display:flex;align-items:center;gap:8px}
+.pill .dot{width:10px;height:10px;border-radius:50%;background:var(--water);animation:ping 1.6s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(45,140,216,.55)}100%{box-shadow:0 0 0 12px rgba(45,140,216,0)}}
+.meter{gap:1px!important;flex:none;font-family:var(--wide);font-stretch:120%;font-weight:800;font-variant-numeric:tabular-nums}
+.wash .under{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wash .under .btn{pointer-events:auto}
+.shine{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;
+  background:var(--ink);color:#fff;border-radius:18px;padding:14px 20px;text-align:center;font-family:var(--wide);font-stretch:118%;font-weight:800;font-size:20px;line-height:1.15;
+  box-shadow:0 18px 40px rgba(19,34,43,.35);transition:opacity .35s,transform .45s cubic-bezier(.2,1.6,.4,1)}
+.shine small{display:block;font-family:"Archivo",sans-serif;font-stretch:100%;font-weight:500;font-size:14px;color:#C9D6DB;margin-top:4px}
+.wash.clean .shine{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.wash .tag .pill:first-child{min-width:0;transition:opacity .3s}
+.wash.clean .tag .pill:first-child{opacity:0}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+@media(max-width:700px){section{padding:64px 0}}
+section.white{background:var(--card)}
+.sec-h{max-width:640px;margin-bottom:40px}
+.sec-h h2{font-size:clamp(30px,4.6vw,48px);font-weight:800}
+.sec-h p{margin-top:14px;color:var(--muted);font-size:18px}
+
+/* services */
+.svcs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.svcs{grid-template-columns:1fr}}
+.svc{background:var(--paper);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.svc .ico{width:58px;height:58px;border-radius:16px;background:var(--card);display:grid;place-items:center}
+.svc h3{font-size:26px;font-weight:800}
+.price{font-family:var(--wide);font-stretch:125%;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.02em}
+.price small{font-family:"Archivo",sans-serif;font-stretch:100%;font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:6px}
+.svc p{color:#33444C}
+.svc ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15.5px}
+.svc li{display:flex;gap:10px;align-items:flex-start}
+.svc li svg{flex:none;margin-top:4px}
+.svc .btn{margin-top:auto;align-self:flex-start}
+@media(max-width:520px){.svc .btn{align-self:stretch}}
+.when{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15.5px;color:var(--muted)}
+.when b{color:var(--ink)}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.why{grid-template-columns:1fr}}
+.why article{border-top:3px solid var(--ink);padding-top:18px}
+.why h3{font-size:22px;font-weight:800;margin-bottom:8px}
+.why p{color:#33444C}
+.why .big{font-size:40px;line-height:1;margin-bottom:12px}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+@media(max-width:960px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+.steps li{background:var(--card);border-radius:22px;padding:24px;counter-increment:s;position:relative}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--wide);font-stretch:125%;font-weight:800;margin-bottom:16px}
+.steps h3{font-size:20px;font-weight:800;margin-bottom:6px;line-height:1.15}
+.steps p{color:var(--muted);font-size:15.5px}
+
+/* reviews */
+.rev-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+@media(max-width:900px){.rev-grid{grid-template-columns:1fr}}
+.avg{display:flex;align-items:center;gap:14px;margin-bottom:18px;font-weight:600}
+.avg .n{font-family:var(--wide);font-stretch:125%;font-weight:800;font-size:40px;line-height:1}
+.stars{color:#F2A33A;letter-spacing:2px;font-size:18px;white-space:nowrap}
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.reviews{grid-template-columns:1fr}}
+.review{background:var(--paper);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.review p{font-size:16px}
+.review .who{font-size:14px;color:var(--muted);font-weight:600}
+.empty{background:var(--paper);border:2px dashed #AEB9BE;border-radius:20px;padding:26px;color:#33444C}
+.empty b{display:block;font-family:var(--wide);font-stretch:115%;font-size:20px;margin-bottom:6px;color:var(--ink)}
+form.rv{background:var(--ink);color:#fff;border-radius:24px;padding:26px;display:grid;gap:16px}
+form.rv h3{font-size:24px;font-weight:800}
+form.rv .sub{color:#B9C8CE;font-size:15px;margin-top:-8px}
+.fld{display:grid;gap:6px;font-size:14px;font-weight:600;color:#DCE6EA}
+.fld .opt{font-weight:400;color:#93A6AE}
+.fld input,.fld textarea{background:#1E3240;border:1.5px solid #2C4555;border-radius:12px;padding:12px 14px;color:#fff;font-size:16px;width:100%}
+.fld input::placeholder,.fld textarea::placeholder{color:#7F949C}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(61,190,92,.25)}
+.fld textarea{min-height:110px;resize:vertical}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0;margin-bottom:6px;font-size:14px;font-weight:600;color:#DCE6EA}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-block;padding:8px 14px;border-radius:999px;border:1.5px solid #2C4555;font-size:14px;font-weight:600;cursor:pointer;color:#DCE6EA}
+.chips input:checked+span{background:var(--green);border-color:var(--green);color:var(--ink)}
+.chips input:focus-visible+span{outline:3px solid var(--focus);outline-offset:2px}
+.rate{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px}
+.rate input{position:absolute;opacity:0;pointer-events:none}
+.rate label{cursor:pointer;line-height:0;padding:2px}
+.rate label svg{width:34px;height:34px;fill:#2C4555;transition:fill .12s,transform .12s}
+.rate input:checked~label svg,.rate label:hover svg,.rate label:hover~label svg{fill:#F2A33A}
+.rate label:hover svg{transform:scale(1.12)}
+.rate input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.msg{border-radius:12px;padding:12px 14px;font-size:15px;font-weight:600}
+.msg.ok{background:var(--green);color:var(--ink)}
+.msg.err{background:var(--danger-soft);color:var(--danger)}
+form.rv .btn{width:100%}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:820px}
+.faq details{background:var(--card);border-radius:18px;padding:0 22px}
+.faq summary{cursor:pointer;list-style:none;padding:20px 0;font-family:var(--wide);font-stretch:112%;font-weight:700;font-size:18px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:28px;height:28px;border-radius:50%;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M7 2v10M2 7h10' stroke='%2313222B' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center no-repeat;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:#33444C;max-width:66ch}
+
+/* final cta */
+.final{background:var(--ink);color:#fff;text-align:center;position:relative;overflow:hidden}
+.final h2{font-size:clamp(32px,5.4vw,58px);font-weight:800;max-width:16ch;margin:0 auto}
+.final p{color:#B9C8CE;margin:16px auto 30px;max-width:44ch;font-size:18px}
+.bubbles{position:absolute;inset:0;pointer-events:none;opacity:.5}
+
+/* footer */
+footer{background:#0C171D;color:#B9C8CE;padding:56px 0 34px;font-size:15px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px}
+@media(max-width:800px){.f-grid{grid-template-columns:1fr}}
+footer .brand{color:#fff}
+footer .brand .mark{background:var(--green)}
+footer h3{font-size:15px;color:#fff;font-stretch:110%;margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{color:#DCE6EA;text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+footer button.link{background:none;border:0;padding:0;color:#DCE6EA;cursor:pointer;text-align:left}
+footer button.link:hover{color:#fff;text-decoration:underline}
+.social{display:flex;gap:10px;margin-top:16px}
+.social a{width:42px;height:42px;border-radius:12px;background:#1A2A33;display:grid;place-items:center}
+.social a:hover{background:var(--green);color:var(--ink)}
+.social svg{width:20px;height:20px;fill:currentColor}
+.legal-line{border-top:1px solid #1E2E37;margin-top:40px;padding-top:22px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:13.5px;color:#7F949C}
+
+/* legal dialog */
+dialog.legal{border:0;border-radius:24px;padding:0;max-width:720px;width:calc(100% - 32px);max-height:86vh;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.legal::backdrop{background:rgba(12,23,29,.6)}
+.legal-head{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.legal-head h2{font-size:22px}
+.legal-head button{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--paper);cursor:pointer;font-size:22px;line-height:1}
+.legal-body{padding:8px 24px 28px;font-size:15.5px;line-height:1.65}
+.legal-body h3{font-size:17px;margin:22px 0 6px;font-stretch:110%}
+.legal-body p,.legal-body li{color:#33444C}
+.legal-body ul{padding-left:20px;margin:6px 0}
+.legal-body .upd{color:var(--muted);font-size:14px;margin-top:14px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" target="_self">
+      <span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2.5c3.6 4.3 6.5 7.9 6.5 11.4A6.5 6.5 0 0 1 5.5 13.9C5.5 10.4 8.4 6.8 12 2.5Z" fill="#fff"/><path d="M9 14.5a3 3 0 0 0 3 3" stroke="#13222B" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <span>Fresh Bins &amp; Sidewalks</span>
+    </a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#servicios" target="_self" data-t="navServices"></a>
+      <a href="#como" target="_self" data-t="navHow"></a>
+      <a href="#resenas" target="_self" data-t="navReviews"></a>
+      <a href="#preguntas" target="_self" data-t="navFaq"></a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn small book" href="#" data-t="navBook"></a>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 data-t="heroTitle"></h1>
+        <p class="lead" data-t="heroLead"></p>
+        <div class="ctas">
+          <a class="btn book" href="#"><span data-t="ctaBins"></span></a>
+          <a class="btn ghost book" href="#"><span data-t="ctaWalk"></span></a>
+        </div>
+        <ul class="facts">
+          <li data-t="fact1"></li>
+          <li data-t="fact2"></li>
+          <li data-t="fact3"></li>
+        </ul>
+      </div>
+
+      <div class="wash" id="wash">
+        <svg class="scene" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="500" fill="#DCE6EA"/>
+          <g stroke="#CBD7DC" stroke-width="2">
+            <path d="M0 40H400M0 80H400M0 120H400M0 160H400M0 200H400M0 240H400M0 280H400M0 320H400"/>
+          </g>
+          <rect y="336" width="400" height="18" fill="#8FCB8F"/>
+          <rect y="350" width="400" height="150" fill="#D6DDE0"/>
+          <path d="M0 352H400" stroke="#B9C3C7" stroke-width="5"/>
+          <path d="M100 352L70 500M300 352L330 500M0 425H400" stroke="#BDC6CA" stroke-width="3"/>
+          <ellipse cx="200" cy="392" rx="96" ry="10" fill="#B9C3C7" opacity=".7"/>
+          <!-- wheelie bin -->
+          <path d="M120 150H280L262 380H138Z" fill="#2F4B57"/>
+          <path d="M132 160H156L148 372H140Z" fill="#3F6676" opacity=".9"/>
+          <path d="M120 150H280L278 172H122Z" fill="#26404B"/>
+          <rect x="160" y="215" width="80" height="54" rx="8" fill="#26404B"/>
+          <path d="M184 232h32M184 244h32M184 256h22" stroke="#3F6676" stroke-width="4" stroke-linecap="round"/>
+          <rect x="112" y="124" width="176" height="30" rx="9" fill="#3DBE5C"/>
+          <rect x="112" y="124" width="176" height="9" rx="4.5" fill="#62D17D"/>
+          <rect x="150" y="110" width="100" height="16" rx="6" fill="#2FA94D"/>
+          <circle cx="146" cy="384" r="16" fill="#13222B"/><circle cx="146" cy="384" r="6" fill="#56666E"/>
+          <circle cx="254" cy="384" r="16" fill="#13222B"/><circle cx="254" cy="384" r="6" fill="#56666E"/>
+          <!-- sparkles -->
+          <g fill="#fff">
+            <path d="M90 190l5 13 13 5-13 5-5 13-5-13-13-5 13-5z"/>
+            <path d="M318 240l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+            <path d="M300 120l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+            <path d="M70 430l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+            <path d="M332 452l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+          </g>
+        </svg>
+        <canvas class="grime" id="grime" width="800" height="1000" role="img"></canvas>
+        <canvas class="fx" id="fx" width="800" height="1000" aria-hidden="true"></canvas>
+        <div class="tag">
+          <span class="pill"><span class="dot" aria-hidden="true"></span><span data-t="washHint"></span></span>
+          <span class="pill meter" aria-live="polite"><span id="pct">0</span>%</span>
+        </div>
+        <div class="shine" aria-live="polite"><span data-t="washDone"></span><small data-t="washDoneSub"></small></div>
+        <div class="under">
+          <button type="button" class="btn ghost small" id="washAll" data-t="washAll"></button>
+          <button type="button" class="btn ghost small" id="washAgain" data-t="washAgain" hidden></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="white" id="servicios">
+    <div class="wrap">
+      <div class="sec-h">
+        <h2 data-t="svcTitle"></h2>
+        <p data-t="svcLead"></p>
+      </div>
+      <div class="svcs">
+        <article class="svc">
+          <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#13222B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M9 6V4h6v2"/><path d="M6 6l1.2 14h9.6L18 6"/><path d="M10 10v6M14 10v6"/></svg></span>
+          <h3 data-t="binsTitle"></h3>
+          <div class="price"><span class="p-bins">$20</span><small data-t="perPair"></small></div>
+          <p data-t="binsDesc"></p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="binsL1"></span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="binsL2"></span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="binsL3"></span></li>
+          </ul>
+          <a class="btn book" href="#" data-t="binsCta"></a>
+        </article>
+        <article class="svc">
+          <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#13222B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l3-14h12l3 14Z"/><path d="M4.6 13h14.8M12 6v14"/></svg></span>
+          <h3 data-t="walkTitle"></h3>
+          <div class="price"><span class="p-walk">$150</span></div>
+          <p data-t="walkDesc"></p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="walkL1"></span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="walkL2"></span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2FA94D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-t="walkL3"></span></li>
+          </ul>
+          <a class="btn book" href="#" data-t="walkCta"></a>
+        </article>
+      </div>
+      <p class="when"><span><b data-t="whenDaysL"></b> <span data-t="whenDays"></span></span><span><b data-t="whenTimeL"></b> <span data-t="whenTime"></span></span><span><b data-t="whenPayL"></b> <span data-t="whenPay"></span></span></p>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="por-que">
+    <div class="wrap">
+      <div class="sec-h"><h2 data-t="whyTitle"></h2><p data-t="whyLead"></p></div>
+      <div class="why">
+        <article><div class="big" aria-hidden="true">👃</div><h3 data-t="why1T"></h3><p data-t="why1"></p></article>
+        <article><div class="big" aria-hidden="true">🪰</div><h3 data-t="why2T"></h3><p data-t="why2"></p></article>
+        <article><div class="big" aria-hidden="true">🦝</div><h3 data-t="why3T"></h3><p data-t="why3"></p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="white" id="como" style="background:var(--paper);padding-top:0">
+    <div class="wrap">
+      <div class="sec-h"><h2 data-t="howTitle"></h2></div>
+      <ol class="steps">
+        <li><h3 data-t="s1T"></h3><p data-t="s1"></p></li>
+        <li><h3 data-t="s2T"></h3><p data-t="s2"></p></li>
+        <li><h3 data-t="s3T"></h3><p data-t="s3"></p></li>
+        <li><h3 data-t="s4T"></h3><p data-t="s4"></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="white" id="resenas">
+    <div class="wrap">
+      <div class="sec-h"><h2 data-t="revTitle"></h2></div>
+      <div class="rev-grid">
+        <div>
+          <div class="avg" id="avg" hidden><span class="n" id="avgN"></span><span><span class="stars" id="avgStars"></span><br><span id="avgCount"></span></span></div>
+          <div class="reviews" id="reviews"></div>
+          <div class="empty" id="revEmpty"><b data-t="revEmptyT"></b><span data-t="revEmpty"></span></div>
+        </div>
+
+        <form class="rv" id="rvForm" novalidate>
+          <h3 data-t="formTitle"></h3>
+          <p class="sub" data-t="formSub"></p>
+          <fieldset>
+            <legend data-t="fRating"></legend>
+            <div class="rate" id="rate"></div>
+          </fieldset>
+          <label class="fld"><span data-t="fName"></span><input name="name" maxlength="60" autocomplete="given-name"></label>
+          <fieldset>
+            <legend data-t="fService"></legend>
+            <div class="chips">
+              <label><input type="radio" name="service" value="bins"><span data-t="chipBins"></span></label>
+              <label><input type="radio" name="service" value="sidewalk"><span data-t="chipWalk"></span></label>
+              <label><input type="radio" name="service" value="both"><span data-t="chipBoth"></span></label>
+            </div>
+          </fieldset>
+          <label class="fld"><span data-t="fText"></span><textarea name="text" maxlength="800"></textarea></label>
+          <label class="fld"><span><span data-t="fEmail"></span> <span class="opt" data-t="fEmailOpt"></span></span><input name="email" type="email" maxlength="120" autocomplete="email"></label>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="msg" id="rvMsg" hidden role="status"></div>
+          <button class="btn" type="submit" id="rvBtn" data-t="fSend"></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="preguntas">
+    <div class="wrap">
+      <div class="sec-h"><h2 data-t="faqTitle"></h2></div>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <svg class="bubbles" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="#3DBE5C" stroke-width="2">
+        <circle cx="80" cy="320" r="34"/><circle cx="160" cy="80" r="14"/><circle cx="1080" cy="90" r="44"/>
+        <circle cx="1140" cy="300" r="18"/><circle cx="980" cy="350" r="10"/><circle cx="240" cy="360" r="8"/>
+      </g>
+    </svg>
+    <div class="wrap" style="position:relative">
+      <h2 data-t="finalTitle"></h2>
+      <p data-t="finalLead"></p>
+      <a class="btn book" href="#" data-t="finalCta"></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a class="brand" href="#inicio" target="_self">
+          <span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2.5c3.6 4.3 6.5 7.9 6.5 11.4A6.5 6.5 0 0 1 5.5 13.9C5.5 10.4 8.4 6.8 12 2.5Z" fill="#13222B"/></svg></span>
+          <span>Fresh Bins &amp; Sidewalks</span>
+        </a>
+        <p style="margin-top:14px;max-width:36ch" data-t="footAbout"></p>
+        <div class="social" id="social"></div>
+      </div>
+      <div>
+        <h3 data-t="footContact"></h3>
+        <ul>
+          <li><a id="fPhone" href="#"></a></li>
+          <li><a id="fText" href="#" data-t="footText"></a></li>
+          <li><a id="fMail" href="#"></a></li>
+          <li><a class="book" href="#" data-t="navBook"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-t="footLegal"></h3>
+        <ul>
+          <li><button type="button" class="link" data-legal="terms" data-t="lgTerms"></button></li>
+          <li><button type="button" class="link" data-legal="privacy" data-t="lgPrivacy"></button></li>
+          <li><button type="button" class="link" data-legal="refunds" data-t="lgRefunds"></button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal-line"><span id="copy"></span><span data-t="footPay"></span></div>
+  </div>
+</footer>
+
+<dialog class="legal" id="legal" aria-labelledby="legalTitle">
+  <div class="legal-head"><h2 id="legalTitle"></h2><button type="button" id="legalClose" aria-label="Cerrar">×</button></div>
+  <div class="legal-body" id="legalBody"></div>
+</dialog>
+
+<script>
+/* ============================================================
+ *  TUS DATOS — cambia esto si algo cambia
+ * ============================================================ */
+const SITE = {
+  // Tu página de reservas (la de Apps Script). Solo hasta "/exec", sin nada después.
+  appUrl: 'https://script.google.com/macros/s/AKfycbwUnftuM_uWeOXqOuCamJNoTPLgmEg5Hz1MMVX4i1v3Lysa3CWDbsdfZbPTDLpNF7mleg/exec',
+  business: 'Fresh Bins & Sidewalks',
+  phone: '(615) 310-6842',
+  email: 'youngdesert01@gmail.com',
+  prices: { bins: 20, sidewalk: 150 },
+  // Tus redes: pega el link completo. Las que queden vacías no se muestran.
+  social: {
+    instagram: '',   // ej. 'https://instagram.com/freshbins'
+    facebook: '',    // ej. 'https://facebook.com/freshbins'
+    tiktok: '',      // ej. 'https://tiktok.com/@freshbins'
+    whatsapp: true   // usa tu teléfono
+  },
+  legalUpdated: { es: 'octubre de 2026', en: 'October 2026' }
+};
+
+/* ============================================================ */
+const T = {
+  es: {
+    navServices: 'Servicios', navHow: 'Cómo funciona', navReviews: 'Reseñas', navFaq: 'Preguntas', navBook: 'Agendar',
+    heroTitle: 'Tus botes de basura no tienen por qué oler así.',
+    heroLead: 'Lavamos a presión tus botes y tu banqueta, ahí mismo frente a tu casa. Tú no haces nada: solo dejas los botes afuera.',
+    ctaBins: 'Quiero botes sin peste', ctaWalk: 'Quiero mi banqueta como nueva',
+    fact1: 'Domingo, lunes y martes', fact2: 'No necesitas estar en casa', fact3: 'Pago seguro con tarjeta',
+    washHint: 'Pásale el dedo para lavarlo', washAll: 'Lavar todo', washAgain: 'Ensuciarlo otra vez',
+    washDone: '¡Así quedan los tuyos!', washDoneSub: 'Sin olor, sin moscas, sin asco.',
+    washLabel: 'Un bote de basura sucio. Arrastra el dedo o el mouse encima para lavarlo a presión.',
+    svcTitle: 'Dos servicios. Cero asco.',
+    svcLead: 'Llegamos con agua a presión y dejamos todo reluciente. Puedes pedir uno o los dos en la misma cita.',
+    binsTitle: 'Lavado de botes', perPair: 'por par (1 o 2 botes)',
+    binsDesc: 'Quitamos la mugre pegada, los restos y el mal olor de tus botes de basura.',
+    binsL1: 'Por dentro y por fuera, con agua a presión', binsL2: 'Un bote solo cuenta como un par', binsL3: 'Lo hacemos frente a tu casa',
+    binsCta: 'Rescatar mis botes',
+    walkTitle: 'Lavado de banqueta',
+    walkDesc: 'Le quitamos a tu banqueta el lodo, las manchas y el moho que se van juntando.',
+    walkL1: 'Agua a presión de punta a punta', walkL2: 'Adiós a lo verde y lo negro', walkL3: 'Se nota desde la calle',
+    walkCta: 'Revivir mi banqueta',
+    whenDaysL: 'Días:', whenDays: 'domingo, lunes y martes', whenTimeL: 'Llegamos:', whenTime: 'entre 8 am y 3 pm',
+    whenPayL: 'Pago:', whenPay: 'con tarjeta al agendar',
+    whyTitle: '¿Por qué lavar un bote de basura?',
+    whyLead: 'Porque lo usas toda la semana y casi nadie lo limpia. Lo que se queda en el fondo se pudre con el calor.',
+    why1T: 'Adiós al olor', why1: 'Los restos que se pegan al fondo y a las paredes son los que huelen. Si se van, el olor se va con ellos.',
+    why2T: 'Menos moscas y gusanos', why2: 'Un bote limpio no tiene dónde dejar huevos. Abres la tapa sin aguantar la respiración.',
+    why3T: 'Menos visitas nocturnas', why3: 'El olor atrae mapaches, perros y otros curiosos. Sin olor, tienen menos razones para venir.',
+    howTitle: 'Así de fácil',
+    s1T: 'Agenda en un minuto', s1: 'Elige tu servicio y el día. Pagas en línea con tarjeta.',
+    s2T: 'Deja los botes afuera', s2: 'Ese día, después de que pase la basura, déjalos vacíos afuera. No necesitas estar en casa.',
+    s3T: 'Llegamos y lavamos', s3: 'Entre 8 am y 3 pm lavamos a presión tus botes o tu banqueta.',
+    s4T: 'Te avisamos', s4: 'Cuando terminamos, te llega un correo para que sepas que ya quedó listo.',
+    revTitle: 'Lo que dicen los vecinos',
+    revEmptyT: 'Todavía no hay reseñas publicadas.', revEmpty: '¿Ya te lavamos los botes o la banqueta? Cuéntanos qué tal te fue y serás de los primeros en aparecer aquí.',
+    avgCount: n => n === 1 ? '1 reseña' : n + ' reseñas',
+    formTitle: 'Deja tu reseña', formSub: 'Tu opinión nos ayuda a mejorar y a que más vecinos nos conozcan.',
+    fRating: '¿Cómo te fue?', starLabel: n => n + (n === 1 ? ' estrella' : ' estrellas'),
+    fName: 'Tu nombre', fService: '¿Qué te lavamos?', chipBins: 'Botes', chipWalk: 'Banqueta', chipBoth: 'Los dos',
+    fText: 'Tu comentario', fEmail: 'Correo', fEmailOpt: '(opcional, no se publica)',
+    fSend: 'Enviar reseña', fSending: 'Enviando…',
+    errRating: 'Elige de 1 a 5 estrellas.', errName: 'Escribe tu nombre.', errText: 'Escribe un comentario un poquito más largo.',
+    errEmail: 'Revisa tu correo, parece incompleto.',
+    errSend: e => 'No se pudo enviar. Intenta de nuevo o escríbenos a ' + e + '.',
+    sent: '¡Gracias! Recibimos tu reseña. Aparecerá aquí cuando la revisemos.',
+    svcName: { bins: 'Botes', sidewalk: 'Banqueta', both: 'Botes y banqueta' },
+    faqTitle: 'Preguntas frecuentes',
+    faq: [
+      ['¿Tengo que estar en casa?', 'No. Solo deja tus botes vacíos afuera el día del servicio, después de que pase el camión de la basura. Si hay reja o algo que debamos saber, escríbelo en las notas al agendar.'],
+      ['¿A qué hora llegan?', 'Entre 8 am y 3 pm del día que elijas. Trabajamos domingo, lunes y martes.'],
+      ['Tengo un solo bote, o tengo tres. ¿Cómo se cobra?', 'Por par: 1 o 2 botes cuentan como un par ($20). 3 o 4 botes son dos pares ($40).'],
+      ['¿Cómo pago?', 'Con tarjeta, en línea, al momento de agendar. El pago lo procesa Stripe; nosotros nunca vemos ni guardamos los datos de tu tarjeta.'],
+      ['¿Puedo cancelar o cambiar la fecha?', 'Sí. Te devolvemos todo si cancelas hasta 24 horas antes. Después de eso, podemos cambiarte la fecha.'],
+      ['¿Llegan a mi zona?', 'Escríbenos o llámanos y te decimos.']
+    ],
+    finalTitle: 'Tus vecinos van a preguntar quién te los lavó.',
+    finalLead: 'Agenda en un minuto. Nosotros nos encargamos de lo asqueroso.',
+    finalCta: 'Agendar mi lavado',
+    footAbout: 'Lavado a presión de botes de basura y banquetas, frente a tu casa.',
+    footContact: 'Contacto', footText: 'Mándanos un WhatsApp', footLegal: 'Legal',
+    lgTerms: 'Términos del servicio', lgPrivacy: 'Política de privacidad', lgRefunds: 'Cancelaciones y reembolsos',
+    footPay: 'Pagos procesados de forma segura por Stripe.',
+    rights: y => '© ' + y + ' ' + SITE.business + '. Todos los derechos reservados.',
+    close: 'Cerrar', updated: 'Última actualización: '
+  },
+  en: {
+    navServices: 'Services', navHow: 'How it works', navReviews: 'Reviews', navFaq: 'FAQ', navBook: 'Book',
+    heroTitle: "Your trash bins don't have to smell like that.",
+    heroLead: "We pressure wash your bins and your sidewalk right in front of your home. You don't lift a finger: just leave the bins out.",
+    ctaBins: 'Un-stink my bins', ctaWalk: 'Make my sidewalk shine',
+    fact1: 'Sunday, Monday and Tuesday', fact2: "You don't need to be home", fact3: 'Secure card payment',
+    washHint: 'Drag to pressure-wash it', washAll: 'Wash it all', washAgain: 'Make it dirty again',
+    washDone: "That's how yours will look!", washDoneSub: 'No smell, no flies, no gross.',
+    washLabel: 'A dirty trash bin. Drag your finger or mouse over it to pressure-wash it.',
+    svcTitle: 'Two services. Zero gross.',
+    svcLead: 'We show up with pressurized water and leave everything spotless. Book one or both in the same visit.',
+    binsTitle: 'Trash bin cleaning', perPair: 'per pair (1 or 2 bins)',
+    binsDesc: 'We blast away the stuck-on grime, leftovers and bad smell from your trash bins.',
+    binsL1: 'Inside and out, with pressurized water', binsL2: 'A single bin counts as one pair', binsL3: 'Done right in front of your home',
+    binsCta: 'Rescue my bins',
+    walkTitle: 'Sidewalk cleaning',
+    walkDesc: 'We wash away the dirt, stains and mildew that build up on your sidewalk.',
+    walkL1: 'Pressure washed end to end', walkL2: 'Bye-bye green and black spots', walkL3: 'You can see it from the street',
+    walkCta: 'Revive my sidewalk',
+    whenDaysL: 'Days:', whenDays: 'Sunday, Monday and Tuesday', whenTimeL: 'We arrive:', whenTime: 'between 8 am and 3 pm',
+    whenPayL: 'Payment:', whenPay: 'by card when you book',
+    whyTitle: 'Why wash a trash can?',
+    whyLead: 'Because you use it all week and almost nobody cleans it. Whatever sticks to the bottom rots in the heat.',
+    why1T: 'Goodbye, smell', why1: "The gunk stuck to the bottom and walls is what smells. When it's gone, the smell goes with it.",
+    why2T: 'Fewer flies and maggots', why2: 'A clean bin gives flies nowhere to lay eggs. Open the lid without holding your breath.',
+    why3T: 'Fewer late-night visitors', why3: 'Smell attracts raccoons, dogs and other curious critters. No smell, fewer reasons to stop by.',
+    howTitle: "Here's how it works",
+    s1T: 'Book in a minute', s1: 'Pick your service and day. Pay online by card.',
+    s2T: 'Leave the bins out', s2: "On service day, after trash pickup, leave them empty outside. You don't need to be home.",
+    s3T: 'We show up and wash', s3: 'Between 8 am and 3 pm we pressure wash your bins or your sidewalk.',
+    s4T: 'We let you know', s4: "When we're done, you get an email so you know it's all set.",
+    revTitle: 'What neighbors say',
+    revEmptyT: 'No published reviews yet.', revEmpty: 'Did we wash your bins or sidewalk? Tell us how it went and be one of the first to show up here.',
+    avgCount: n => n === 1 ? '1 review' : n + ' reviews',
+    formTitle: 'Leave a review', formSub: 'Your feedback helps us improve and helps more neighbors find us.',
+    fRating: 'How did we do?', starLabel: n => n + (n === 1 ? ' star' : ' stars'),
+    fName: 'Your name', fService: 'What did we wash?', chipBins: 'Bins', chipWalk: 'Sidewalk', chipBoth: 'Both',
+    fText: 'Your review', fEmail: 'Email', fEmailOpt: "(optional, won't be published)",
+    fSend: 'Send review', fSending: 'Sending…',
+    errRating: 'Pick 1 to 5 stars.', errName: 'Please enter your name.', errText: 'Please write a slightly longer review.',
+    errEmail: 'Please check your email address.',
+    errSend: e => "Couldn't send it. Try again or email us at " + e + '.',
+    sent: "Thank you! We got your review. It'll show up here once we've read it.",
+    svcName: { bins: 'Bins', sidewalk: 'Sidewalk', both: 'Bins and sidewalk' },
+    faqTitle: 'Frequently asked questions',
+    faq: [
+      ['Do I need to be home?', "No. Just leave your bins empty outside on service day, after the garbage truck comes by. If there's a gate or anything we should know, add it to the notes when you book."],
+      ['What time do you arrive?', 'Between 8 am and 3 pm on the day you pick. We work Sunday, Monday and Tuesday.'],
+      ['I have one bin, or three. How is it priced?', 'Per pair: 1 or 2 bins count as one pair ($20). 3 or 4 bins are two pairs ($40).'],
+      ['How do I pay?', 'By card, online, when you book. Payments are processed by Stripe; we never see or store your card details.'],
+      ['Can I cancel or reschedule?', 'Yes. You get a full refund if you cancel up to 24 hours before. After that, we can move your date.'],
+      ['Do you serve my area?', 'Call or text us and we will let you know.']
+    ],
+    finalTitle: 'Your neighbors will ask who did it.',
+    finalLead: 'Book in a minute. We handle the gross part.',
+    finalCta: 'Book my wash',
+    footAbout: 'Pressure washing for trash bins and sidewalks, right in front of your home.',
+    footContact: 'Contact', footText: 'Message us on WhatsApp', footLegal: 'Legal',
+    lgTerms: 'Terms of service', lgPrivacy: 'Privacy policy', lgRefunds: 'Cancellations and refunds',
+    footPay: 'Payments securely processed by Stripe.',
+    rights: y => '© ' + y + ' ' + SITE.business + '. All rights reserved.',
+    close: 'Close', updated: 'Last updated: '
+  }
+};
+
+/* ---------- Legal texts ---------- */
+const LEGAL = {
+  es: {
+    terms: ['Términos del servicio', `
+      <p>Estos términos aplican cuando agendas un servicio con ${SITE.business} ("nosotros"). Al agendar y pagar, aceptas estos términos.</p>
+      <h3>1. El servicio</h3>
+      <p>Ofrecemos lavado a presión de botes de basura residenciales y de banquetas, en el domicilio que nos indiques. Los precios publicados son: $${SITE.prices.bins} por par de botes (1 o 2 botes cuentan como un par) y $${SITE.prices.sidewalk} por lavado de banqueta.</p>
+      <h3>2. Citas y pagos</h3>
+      <p>Las citas se agendan y se pagan en línea con tarjeta. Llegamos entre 8 am y 3 pm del día elegido. Tu cita queda confirmada cuando el pago se completa.</p>
+      <h3>3. Lo que necesitamos de ti</h3>
+      <ul>
+        <li>Que los botes estén vacíos y afuera, en un lugar donde podamos trabajar, el día del servicio.</li>
+        <li>Acceso seguro al área: si hay reja, mascotas o algo que debamos saber, indícalo en las notas.</li>
+        <li>Que los datos que nos das (dirección, teléfono, correo) sean correctos.</li>
+      </ul>
+      <p>Si al llegar no podemos hacer el servicio por falta de acceso o porque los botes no están afuera, te contactamos para buscar otra fecha.</p>
+      <h3>4. Clima y seguridad</h3>
+      <p>Podemos cambiar la fecha de una cita por mal clima, condiciones inseguras o fallas de equipo. Si eso pasa, te avisamos y eliges entre una nueva fecha o el reembolso completo.</p>
+      <h3>5. Resultados</h3>
+      <p>Hacemos nuestro mejor esfuerzo para dejar todo limpio. Algunas manchas permanentes, óxido, pintura o daños que ya existían pueden no salir por completo. No nos hacemos responsables por daños previos ni por el desgaste normal de los botes o la banqueta.</p>
+      <h3>6. Si algo no salió bien</h3>
+      <p>Si tienes un problema con tu servicio, contáctanos lo antes posible al ${SITE.phone} o a ${SITE.email} y lo revisamos contigo.</p>
+      <h3>7. Responsabilidad</h3>
+      <p>En la medida que lo permita la ley, nuestra responsabilidad por cualquier reclamo relacionado con un servicio se limita a la cantidad que pagaste por ese servicio.</p>
+      <h3>8. Cambios</h3>
+      <p>Podemos actualizar estos términos. La versión vigente siempre estará en esta página. Estos términos se rigen por las leyes del estado donde se presta el servicio.</p>`],
+    privacy: ['Política de privacidad', `
+      <p>Tu privacidad nos importa. Aquí explicamos qué datos usamos y para qué.</p>
+      <h3>Qué datos recopilamos</h3>
+      <ul>
+        <li>Al agendar: nombre, teléfono, correo (opcional), dirección del servicio y las notas que escribas.</li>
+        <li>Al dejar una reseña: tu nombre, tu comentario, tu calificación y tu correo (opcional).</li>
+      </ul>
+      <h3>Para qué los usamos</h3>
+      <ul>
+        <li>Para agendar y prestar tu servicio, y para contactarte sobre tu cita.</li>
+        <li>Para mandarte la confirmación de tu cita y el aviso de servicio terminado, que puede incluir un descuento para tu próximo lavado.</li>
+        <li>Para llevar un registro de nuestros clientes y mejorar el servicio.</li>
+      </ul>
+      <h3>Pagos</h3>
+      <p>Los pagos los procesa Stripe. Nosotros no vemos ni guardamos el número de tu tarjeta. Stripe trata tus datos de pago según su propia política de privacidad.</p>
+      <h3>Dónde se guardan</h3>
+      <p>Tus datos se guardan en servicios de Google (Calendar, Sheets y Gmail) que usamos para operar el negocio. Las sugerencias de dirección del formulario de reserva usan un servicio de mapas basado en OpenStreetMap, que recibe el texto de la dirección que escribes.</p>
+      <h3>Reseñas</h3>
+      <p>Si publicamos tu reseña, mostramos tu nombre (solo el primer nombre y la inicial del apellido), tu comentario y tu calificación. Tu correo nunca se publica.</p>
+      <h3>Lo que no hacemos</h3>
+      <p>No vendemos ni rentamos tus datos a nadie.</p>
+      <h3>Tus opciones</h3>
+      <p>Puedes pedirnos ver, corregir o borrar tus datos, o dejar de recibir correos, escribiendo a ${SITE.email}. Este sitio no está dirigido a menores de 13 años.</p>`],
+    refunds: ['Cancelaciones y reembolsos', `
+      <h3>Si cancelas</h3>
+      <ul>
+        <li><b>Hasta 24 horas antes</b> de tu cita: te devolvemos el 100% de lo que pagaste.</li>
+        <li><b>Con menos de 24 horas</b>: no hay reembolso, pero podemos cambiar tu cita a otra fecha disponible.</li>
+      </ul>
+      <p>Para cancelar o cambiar la fecha, llámanos o escríbenos al ${SITE.phone} o a ${SITE.email} con tu número de referencia.</p>
+      <h3>Si nosotros cancelamos</h3>
+      <p>Si tenemos que cancelar por mal clima, seguridad o fallas de equipo, tú eliges: una nueva fecha o el reembolso completo.</p>
+      <h3>Cuánto tarda un reembolso</h3>
+      <p>El reembolso vuelve a la misma tarjeta con la que pagaste. Según tu banco, puede tardar de 5 a 10 días hábiles en aparecer.</p>`]
+  },
+  en: {
+    terms: ['Terms of service', `
+      <p>These terms apply when you book a service with ${SITE.business} ("we", "us"). By booking and paying, you agree to these terms.</p>
+      <h3>1. The service</h3>
+      <p>We pressure wash residential trash bins and sidewalks at the address you provide. Published prices: $${SITE.prices.bins} per pair of bins (1 or 2 bins count as one pair) and $${SITE.prices.sidewalk} per sidewalk wash.</p>
+      <h3>2. Appointments and payment</h3>
+      <p>Appointments are booked and paid online by card. We arrive between 8 am and 3 pm on the day you choose. Your appointment is confirmed once payment is complete.</p>
+      <h3>3. What we need from you</h3>
+      <ul>
+        <li>Bins empty and outside, somewhere we can work, on service day.</li>
+        <li>Safe access to the area: if there's a gate, pets or anything we should know, add it to the notes.</li>
+        <li>Accurate information (address, phone, email).</li>
+      </ul>
+      <p>If we can't complete the service because of no access or because the bins aren't out, we'll contact you to find another date.</p>
+      <h3>4. Weather and safety</h3>
+      <p>We may reschedule because of bad weather, unsafe conditions or equipment problems. If that happens, we'll let you know and you can choose a new date or a full refund.</p>
+      <h3>5. Results</h3>
+      <p>We do our best to leave everything clean. Some permanent stains, rust, paint or pre-existing damage may not come out completely. We're not responsible for pre-existing damage or normal wear of bins or sidewalks.</p>
+      <h3>6. If something didn't go right</h3>
+      <p>If you have a problem with your service, contact us as soon as possible at ${SITE.phone} or ${SITE.email} and we'll look into it with you.</p>
+      <h3>7. Liability</h3>
+      <p>To the extent permitted by law, our liability for any claim related to a service is limited to the amount you paid for that service.</p>
+      <h3>8. Changes</h3>
+      <p>We may update these terms. The current version will always be on this page. These terms are governed by the laws of the state where the service is performed.</p>`],
+    privacy: ['Privacy policy', `
+      <p>Your privacy matters to us. Here's what data we use and why.</p>
+      <h3>What we collect</h3>
+      <ul>
+        <li>When you book: name, phone, email (optional), service address and any notes you write.</li>
+        <li>When you leave a review: your name, review, rating and email (optional).</li>
+      </ul>
+      <h3>How we use it</h3>
+      <ul>
+        <li>To schedule and perform your service, and to contact you about your appointment.</li>
+        <li>To send your booking confirmation and a service-completed notice, which may include a discount for your next wash.</li>
+        <li>To keep a record of our customers and improve our service.</li>
+      </ul>
+      <h3>Payments</h3>
+      <p>Payments are processed by Stripe. We never see or store your card number. Stripe handles your payment data under its own privacy policy.</p>
+      <h3>Where it's stored</h3>
+      <p>Your data is stored in Google services (Calendar, Sheets and Gmail) that we use to run the business. Address suggestions on the booking form use a map service based on OpenStreetMap, which receives the address text you type.</p>
+      <h3>Reviews</h3>
+      <p>If we publish your review, we show your name (first name and last initial only), your review and your rating. Your email is never published.</p>
+      <h3>What we don't do</h3>
+      <p>We don't sell or rent your data to anyone.</p>
+      <h3>Your choices</h3>
+      <p>You can ask us to see, correct or delete your data, or to stop sending you emails, by writing to ${SITE.email}. This site is not directed at children under 13.</p>`],
+    refunds: ['Cancellations and refunds', `
+      <h3>If you cancel</h3>
+      <ul>
+        <li><b>Up to 24 hours before</b> your appointment: we refund 100% of what you paid.</li>
+        <li><b>Less than 24 hours before</b>: no refund, but we can move your appointment to another available date.</li>
+      </ul>
+      <p>To cancel or reschedule, call or text ${SITE.phone} or email ${SITE.email} with your reference number.</p>
+      <h3>If we cancel</h3>
+      <p>If we have to cancel because of bad weather, safety or equipment problems, you choose: a new date or a full refund.</p>
+      <h3>How long refunds take</h3>
+      <p>Refunds go back to the card you paid with. Depending on your bank, they can take 5 to 10 business days to show up.</p>`]
+  }
+};
+
+/* ============================================================ */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+let lang = (new URLSearchParams(location.search).get('lang') || navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+const L = () => T[lang];
+const bookUrl = () => SITE.appUrl.split('?')[0] + '?lang=' + lang;
+const digits = SITE.phone.replace(/\D/g, '');
+
+function render() {
+  const t = L();
+  document.documentElement.lang = lang;
+  $$('[data-t]').forEach(el => { const v = t[el.dataset.t]; if (typeof v === 'string') el.textContent = v; });
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  $$('a.book').forEach(a => a.href = bookUrl());
+  $$('.p-bins').forEach(e => e.textContent = '$' + SITE.prices.bins);
+  $$('.p-walk').forEach(e => e.textContent = '$' + SITE.prices.sidewalk);
+  $('#grime').setAttribute('aria-label', t.washLabel);
+  $('#legalClose').setAttribute('aria-label', t.close);
+
+  // FAQ
+  const faq = $('#faq');
+  const open = $$('#faq details').map(d => d.open);
+  faq.innerHTML = '';
+  t.faq.forEach((q, i) => {
+    const d = document.createElement('details'); if (open[i]) d.open = true;
+    const s = document.createElement('summary'); s.textContent = q[0];
+    const p = document.createElement('p'); p.textContent = q[1];
+    d.append(s, p); faq.append(d);
+  });
+
+  // Stars input
+  const rate = $('#rate');
+  const cur = (rate.querySelector('input:checked') || {}).value;
+  rate.innerHTML = '';
+  for (let n = 5; n >= 1; n--) {
+    const id = 'r' + n;
+    const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'rating'; inp.value = n; inp.id = id;
+    if (String(n) === cur) inp.checked = true;
+    const lab = document.createElement('label'); lab.htmlFor = id;
+    lab.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg><span class="sr"></span>';
+    lab.querySelector('.sr').textContent = t.starLabel(n);
+    rate.append(inp, lab);
+  }
+
+  // Footer contact & socials
+  $('#fPhone').textContent = SITE.phone; $('#fPhone').href = 'tel:+1' + digits;
+  $('#fMail').textContent = SITE.email; $('#fMail').href = 'mailto:' + SITE.email;
+  $('#fText').href = 'https://wa.me/1' + digits;
+  $('#fText').parentElement.hidden = !SITE.social.whatsapp;
+  renderSocial();
+  $('#copy').textContent = t.rights(new Date().getFullYear());
+  renderReviews();
+  if (legalOpen) openLegal(legalOpen);
+}
+
+const ICONS = {
+  instagram: '<path d="M12 7.3A4.7 4.7 0 1 0 16.7 12 4.7 4.7 0 0 0 12 7.3Zm0 7.7a3 3 0 1 1 3-3 3 3 0 0 1-3 3Zm6-7.9a1.1 1.1 0 1 1-1.1-1.1A1.1 1.1 0 0 1 18 7.1ZM21 7a5.4 5.4 0 0 0-1.5-3.6A5.4 5.4 0 0 0 16 2c-1.4-.1-5.6-.1-7 0a5.4 5.4 0 0 0-3.6 1.5A5.4 5.4 0 0 0 4 7c-.1 1.4-.1 5.6 0 7a5.4 5.4 0 0 0 1.5 3.6A5.4 5.4 0 0 0 9 22c1.4.1 5.6.1 7 0a5.4 5.4 0 0 0 3.6-1.5A5.4 5.4 0 0 0 21 17c.1-1.4.1-5.6 0-7Zm-2 8.8a3 3 0 0 1-1.7 1.7c-1.2.5-4 .4-5.3.4s-4.1.1-5.3-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-4-.4-5.3s-.1-4.1.4-5.3a3 3 0 0 1 1.7-1.7c1.2-.5 4-.4 5.3-.4s4.1-.1 5.3.4a3 3 0 0 1 1.7 1.7c.5 1.2.4 4 .4 5.3s.1 4.1-.4 5.3Z"/>',
+  facebook: '<path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9a15.4 15.4 0 0 1 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/>',
+  tiktok: '<path d="M19.6 7.7a5.3 5.3 0 0 1-3.2-1.1 5.3 5.3 0 0 1-2-3.6h-3.2v12.5a2.7 2.7 0 1 1-2.7-2.7 2.6 2.6 0 0 1 .8.1V9.6a6 6 0 0 0-.8-.1 5.9 5.9 0 1 0 5.9 5.9V9a8.4 8.4 0 0 0 5.2 1.8Z"/>',
+  whatsapp: '<path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6a2 2 0 0 0 .3-.5.6.6 0 0 0 0-.5c0-.2-.7-1.6-.9-2.2s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.5 13.5 0 0 0 5.2 4.6c.7.3 1.3.5 1.7.6a4.2 4.2 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3ZM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8Zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.9L.1 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4 11.8 11.8 0 0 0 8.4-20.1Z"/>'
+};
+function renderSocial() {
+  const box = $('#social'); box.innerHTML = '';
+  const links = [
+    ['instagram', SITE.social.instagram, 'Instagram'],
+    ['facebook', SITE.social.facebook, 'Facebook'],
+    ['tiktok', SITE.social.tiktok, 'TikTok'],
+    ['whatsapp', SITE.social.whatsapp ? 'https://wa.me/1' + digits : '', 'WhatsApp']
+  ];
+  links.forEach(([k, url, name]) => {
+    if (!url) return;
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('aria-label', name);
+    a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[k] + '</svg>';
+    box.append(a);
+  });
+}
+
+/* ---------- Legal dialog ---------- */
+let legalOpen = null;
+function openLegal(key) {
+  const [title, html] = LEGAL[lang][key];
+  legalOpen = key;
+  $('#legalTitle').textContent = title;
+  $('#legalBody').innerHTML = html + '<p class="upd"></p>';
+  $('#legalBody .upd').textContent = L().updated + SITE.legalUpdated[lang];
+  const d = $('#legal');
+  if (!d.open) { d.showModal ? d.showModal() : d.setAttribute('open', ''); }
+  $('#legalBody').scrollTop = 0; d.scrollTop = 0;
+}
+$$('[data-legal]').forEach(b => b.addEventListener('click', () => openLegal(b.dataset.legal)));
+$('#legalClose').addEventListener('click', () => { $('#legal').close(); });
+$('#legal').addEventListener('close', () => { legalOpen = null; });
+$('#legal').addEventListener('click', e => { if (e.target === $('#legal')) $('#legal').close(); });
+
+/* ---------- Reviews (real, approved by the owner in the sheet) ---------- */
+let REV = null;
+async function loadReviews() {
+  try {
+    const r = await fetch(SITE.appUrl.split('?')[0] + '?action=reviews', { cache: 'no-store' });
+    const data = await r.json();
+    REV = data && Array.isArray(data.reviews) ? data : { reviews: [] };
+  } catch (_) { REV = { reviews: [] }; }
+  renderReviews();
+}
+function renderReviews() {
+  const t = L(), list = $('#reviews');
+  list.innerHTML = '';
+  const items = (REV && REV.reviews) || [];
+  $('#revEmpty').hidden = items.length > 0;
+  $('#avg').hidden = items.length === 0;
+  if (!items.length) return;
+  const avg = REV.average || items.reduce((s, r) => s + r.rating, 0) / items.length;
+  $('#avgN').textContent = (Math.round(avg * 10) / 10).toFixed(1);
+  $('#avgStars').textContent = '★★★★★'.slice(0, Math.round(avg)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(avg));
+  $('#avgCount').textContent = t.avgCount(REV.count || items.length);
+  items.forEach(r => {
+    const card = document.createElement('article'); card.className = 'review';
+    const st = document.createElement('div'); st.className = 'stars';
+    st.textContent = '★★★★★'.slice(0, r.rating) + '☆☆☆☆☆'.slice(0, 5 - r.rating);
+    st.setAttribute('aria-label', t.starLabel(r.rating));
+    const p = document.createElement('p'); p.textContent = '“' + r.text + '”';
+    const who = document.createElement('div'); who.className = 'who';
+    const svc = r.service && t.svcName[r.service] ? ' · ' + t.svcName[r.service] : '';
+    who.textContent = r.name + svc;
+    card.append(st, p, who); list.append(card);
+  });
+}
+
+/* ---------- Review form ---------- */
+$('#rvForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, t = L(), msg = $('#rvMsg'), btn = $('#rvBtn');
+  const val = n => (f.elements[n] && f.elements[n].value || '').trim();
+  const rating = Number((f.querySelector('input[name=rating]:checked') || {}).value || 0);
+  const service = (f.querySelector('input[name=service]:checked') || {}).value || '';
+  const show = (text, ok) => { msg.textContent = text; msg.className = 'msg ' + (ok ? 'ok' : 'err'); msg.hidden = false; };
+  if (!rating) return show(t.errRating);
+  if (!val('name')) return show(t.errName);
+  if (val('text').length < 5) return show(t.errText);
+  if (val('email') && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email'))) return show(t.errEmail);
+  btn.disabled = true; btn.textContent = t.fSending; msg.hidden = true;
+  try {
+    const r = await fetch(SITE.appUrl.split('?')[0], {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ type: 'review', rating, service, lang,
+        name: val('name'), text: val('text'), email: val('email'), website: val('website') })
+    });
+    const data = await r.json();
+    if (!data || !data.ok) throw new Error((data && data.error) || 'ERR');
+    f.reset(); render();
+    show(t.sent, true);
+  } catch (_) {
+    show(t.errSend(SITE.email));
+  } finally {
+    btn.disabled = false; btn.textContent = L().fSend;
+  }
+});
+
+/* ---------- Scrub-to-wash ---------- */
+const Wash = (() => {
+  const box = $('#wash'), cv = $('#grime'), fx = $('#fx');
+  const g = cv.getContext('2d'), f = fx.getContext('2d');
+  const W = cv.width, H = cv.height, R = 78;
+  const COLS = 32, ROWS = 40, cells = new Uint8Array(COLS * ROWS);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cleaned = 0, done = false, last = null, drops = [], raf = 0;
+
+  function rnd(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  function paintGrime() {
+    const r = rnd(7);
+    g.globalCompositeOperation = 'source-over';
+    g.globalAlpha = 1;
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = 'rgba(96,82,54,0.86)';
+    g.fillRect(0, 0, W, H);
+    // moldy blotches
+    for (let i = 0; i < 34; i++) {
+      const x = r() * W, y = r() * H, rad = 40 + r() * 130;
+      const grd = g.createRadialGradient(x, y, 0, x, y, rad);
+      const c = r() < .5 ? '58,66,30' : r() < .5 ? '45,36,22' : '128,110,70';
+      grd.addColorStop(0, 'rgba(' + c + ',0.55)'); grd.addColorStop(1, 'rgba(' + c + ',0)');
+      g.fillStyle = grd; g.beginPath(); g.arc(x, y, rad, 0, Math.PI * 2); g.fill();
+    }
+    // grit
+    const grit = ['rgba(40,32,20,.55)', 'rgba(140,122,82,.45)', 'rgba(70,80,40,.45)', 'rgba(30,26,18,.5)'];
+    for (let i = 0; i < 1400; i++) {
+      g.fillStyle = grit[(r() * grit.length) | 0];
+      g.beginPath(); g.arc(r() * W, r() * H, 1.5 + r() * 6, 0, Math.PI * 2); g.fill();
+    }
+    // drips down the bin
+    g.lineCap = 'round';
+    for (let i = 0; i < 16; i++) {
+      const x = 270 + r() * 260, y = 300 + r() * 180, len = 80 + r() * 260;
+      g.strokeStyle = 'rgba(48,40,24,' + (.35 + r() * .3) + ')'; g.lineWidth = 6 + r() * 12;
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r() - .5) * 10, y + len); g.stroke();
+    }
+    // stink lines
+    g.strokeStyle = 'rgba(150,182,64,.9)'; g.lineWidth = 9;
+    [[330, 200], [400, 175], [470, 200]].forEach(([x, y]) => {
+      g.beginPath(); g.moveTo(x, y);
+      for (let k = 1; k <= 5; k++) g.quadraticCurveTo(x + (k % 2 ? 22 : -22), y - k * 26 + 13, x, y - k * 26);
+      g.stroke();
+    });
+    // flies
+    [[250, 120], [560, 160], [610, 330], [190, 300], [520, 90]].forEach(([x, y]) => {
+      g.fillStyle = 'rgba(220,230,235,.8)';
+      g.beginPath(); g.ellipse(x - 7, y - 8, 9, 6, -.6, 0, Math.PI * 2); g.fill();
+      g.beginPath(); g.ellipse(x + 7, y - 8, 9, 6, .6, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#121212'; g.beginPath(); g.ellipse(x, y, 9, 7, 0, 0, Math.PI * 2); g.fill();
+    });
+    cells.fill(0); cleaned = 0; done = false;
+    cv.style.opacity = '1';
+    box.classList.remove('clean');
+    $('#pct').textContent = '0';
+    $('#washAll').hidden = false; $('#washAgain').hidden = true;
+  }
+
+  function pos(e) {
+    const b = cv.getBoundingClientRect();
+    return { x: (e.clientX - b.left) / b.width * W, y: (e.clientY - b.top) / b.height * H };
+  }
+  function mark(x, y) {
+    const cw = W / COLS, ch = H / ROWS;
+    const c0 = Math.max(0, Math.floor((x - R) / cw)), c1 = Math.min(COLS - 1, Math.floor((x + R) / cw));
+    const r0 = Math.max(0, Math.floor((y - R) / ch)), r1 = Math.min(ROWS - 1, Math.floor((y + R) / ch));
+    for (let rr = r0; rr <= r1; rr++) for (let cc = c0; cc <= c1; cc++) {
+      const cx = (cc + .5) * cw, cy = (rr + .5) * ch;
+      if ((cx - x) ** 2 + (cy - y) ** 2 <= R * R && !cells[rr * COLS + cc]) { cells[rr * COLS + cc] = 1; cleaned++; }
+    }
+  }
+  function blast(x, y) {
+    g.globalCompositeOperation = 'destination-out';
+    const grd = g.createRadialGradient(x, y, R * .25, x, y, R);
+    grd.addColorStop(0, 'rgba(0,0,0,1)'); grd.addColorStop(.7, 'rgba(0,0,0,.9)'); grd.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = grd; g.beginPath(); g.arc(x, y, R, 0, Math.PI * 2); g.fill();
+    mark(x, y);
+    if (!reduce) for (let i = 0; i < 6; i++) {
+      const a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 9;
+      drops.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 3, life: 1, r: 3 + Math.random() * 5 });
+    }
+  }
+  function scrub(p) {
+    if (done) return;
+    if (last) {
+      const dx = p.x - last.x, dy = p.y - last.y, steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / (R * .35)));
+      for (let i = 1; i <= steps; i++) blast(last.x + dx * i / steps, last.y + dy * i / steps);
+    } else blast(p.x, p.y);
+    last = p;
+    const pct = Math.min(100, Math.round(cleaned / cells.length * 100 / .9));
+    $('#pct').textContent = pct;
+    if (pct >= 62) finish();
+    if (!raf && drops.length) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    f.clearRect(0, 0, W, H);
+    drops = drops.filter(d => d.life > 0);
+    drops.forEach(d => {
+      d.x += d.vx; d.y += d.vy; d.vy += .6; d.life -= .045;
+      f.fillStyle = 'rgba(160,210,245,' + Math.max(0, d.life) + ')';
+      f.beginPath(); f.arc(d.x, d.y, d.r, 0, Math.PI * 2); f.fill();
+    });
+    raf = drops.length ? requestAnimationFrame(tick) : 0;
+    if (!raf) f.clearRect(0, 0, W, H);
+  }
+  function finish() {
+    if (done) return;
+    done = true;
+    $('#pct').textContent = '100';
+    cv.style.opacity = '0';
+    box.classList.add('clean');
+    $('#washAll').hidden = true; $('#washAgain').hidden = false;
+  }
+
+  cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); last = null; scrub(pos(e)); });
+  cv.addEventListener('pointermove', e => { if (e.buttons || e.pointerType === 'touch') scrub(pos(e)); else last = null; });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => cv.addEventListener(t, () => { last = null; }));
+  $('#washAll').addEventListener('click', () => {
+    if (reduce) return finish();
+    let y = 0;
+    const sweep = () => {
+      for (let x = 0; x <= W; x += R) blast(x, y);
+      y += R * .9; $('#pct').textContent = Math.min(99, Math.round(y / H * 100));
+      if (!raf) raf = requestAnimationFrame(tick);
+      if (y < H + R) requestAnimationFrame(sweep); else finish();
+    };
+    sweep();
+  });
+  $('#washAgain').addEventListener('click', paintGrime);
+  paintGrime();
+  return { reset: paintGrime };
+})();
+
+/* ---------- misc ---------- */
+$$('.lang button').forEach(b => b.addEventListener('click', () => {
+  lang = b.dataset.lang; render();
+}));
+addEventListener('scroll', () => $('#top').classList.toggle('scrolled', scrollY > 8), { passive: true });
+render();
+loadReviews();
+</script>
+</body>
+</html>
